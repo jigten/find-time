@@ -1,10 +1,11 @@
 import React from 'react';
-import HelloWorld from './components/HelloWorld';
+import { Login, Logout } from './components/authentication';
 
 const App: React.FC<{}> = () => {
 	return (
 		<>
-			<HelloWorld />
+			<Login />
+			<Logout />
 		</>
 	);
 };
