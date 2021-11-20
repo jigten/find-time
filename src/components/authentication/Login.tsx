@@ -2,12 +2,21 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { CLIENT_ID } from '../../utils/constants';
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { refreshTokenSetup } from '../../utils/refreshToken';
 
-export const Login: React.FC = () => {
-	const onSuccess = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-		if ('profileObj' in res) {
-			console.log('Login sucess, currentUser:');
-			console.dir(res.profileObj);
+type LoginProps = {
+	setIsLoggedIn: (loggedIn: boolean) => void;
+	setAccessToken: (accessToken: string) => void;
+};
+
+export const Login: React.FC<LoginProps> = (props) => {
+	const { setIsLoggedIn, setAccessToken } = props;
+
+	const onSuccess = async (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+		if ('accessToken' in res) {
+			setIsLoggedIn(true);
+			setAccessToken(res.accessToken);
+			refreshTokenSetup(res);
 		}
 	};
 
@@ -20,6 +29,7 @@ export const Login: React.FC = () => {
 			<GoogleLogin
 				clientId={CLIENT_ID}
 				buttonText="Login"
+				scope="profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly"
 				onSuccess={onSuccess}
 				onFailure={onFailure}
 				style={{ marginTop: '100px' }}

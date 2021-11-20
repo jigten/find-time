@@ -7,7 +7,7 @@ module.exports = {
 	output: { path: path.join(__dirname, 'build'), filename: 'index.bundle.js' },
 	mode: process.env.NODE_ENV || 'development',
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js'],
+		extensions: ['.tsx', '.ts', '.js', '.css', '.scss'],
 	},
 	devServer: { static: path.join(__dirname, 'src') },
 	module: {
@@ -23,8 +23,12 @@ module.exports = {
 				use: ['ts-loader'],
 			},
 			{
-				test: /\.(css|scss)$/,
-				use: ['style-loader', 'css-loader'],
+				test: /\.s?css$/,
+				use: [
+					'style-loader',
+					{ loader: 'css-loader', options: { modules: true } },
+					{ loader: 'sass-loader', options: { sourceMap: true } },
+				],
 			},
 			{
 				test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,

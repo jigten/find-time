@@ -1,11 +1,10 @@
 import React from 'react';
-import { Login, Logout } from './components/authentication';
+import { Landing } from './components';
 
 const App: React.FC<{}> = () => {
 	return (
 		<>
-			<Login />
-			<Logout />
+			<Landing />
 		</>
 	);
 };

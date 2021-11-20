@@ -6,8 +6,6 @@ export const refreshTokenSetup = (res: GoogleLoginResponse) => {
 	const refreshToken = async () => {
 		const newAuthRes = await res.reloadAuthResponse();
 		refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
-		console.dir('newAuthRes: ', newAuthRes);
-		console.dir('New auth token:', newAuthRes.id_token);
 		setTimeout(refreshToken, refreshTiming);
 	};
 

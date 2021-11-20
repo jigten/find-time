@@ -2,9 +2,16 @@ import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { CLIENT_ID } from '../../utils/constants';
 
-export const Logout: React.FC = () => {
+type LogoutProps = {
+	setIsLoggedIn: (loggedIn: boolean) => void;
+	setAccessToken: (accessToken: string) => void;
+};
+
+export const Logout: React.FC<LogoutProps> = (props) => {
+	const { setIsLoggedIn, setAccessToken } = props;
 	const onSuccess = () => {
-		alert('Logged out succesfully');
+		setIsLoggedIn(false);
+		setAccessToken('');
 	};
 	return (
 		<div>
