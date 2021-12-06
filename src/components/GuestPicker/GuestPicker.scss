@@ -1,0 +1,19 @@
+.guestItem {
+	width: 200px;
+	border: 1px solid gray;
+	background-color: papayawhip;
+	padding: 10px;
+	margin: 10px;
+}
+
+.addGuest {
+	font-size: 18px;
+	padding: 10px;
+	margin: 10px;
+	background: papayawhip;
+	border: none;
+	border-radius: 3px;
+	::placeholder {
+		color: palevioletred;
+	}
+}
