@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Login, Logout } from './Authentication';
-import { SchedulePicker } from './SchedulePicker';
 import { StepWizard } from './StepWizard';
 import styles from './Landing.scss';
 

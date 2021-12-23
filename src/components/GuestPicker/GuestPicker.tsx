@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from './GuestPicker.scss';
 
-type Guest = {
-	id: number;
+export type Guest = {
+	id: string;
 	email: string;
 };
+
 type GuestPickerProps = {
+	finalGuests: Guest[];
+	setFinalGuests: (guests: Guest[]) => void;
 	jumpToStep?: (step: number) => void;
 };
 
@@ -19,29 +22,30 @@ const reorder = (list: Guest[], startIndex: number, endIndex: number): Guest[] =
 };
 
 export const GuestPicker: React.FC<GuestPickerProps> = (props) => {
-	const { jumpToStep } = props;
-	const [guests, setGuests] = useState<Guest[]>([]);
+	const { finalGuests, setFinalGuests, jumpToStep } = props;
+	const [guests, setGuests] = useState<Guest[]>(finalGuests);
 	const [newGuestEmail, setNewGuestEmail] = useState<string>('');
 
 	const onDragEnd = (result) => {
 		if (!result.destination) {
 			return;
 		}
-
 		if (result.destination.index === result.source.index) {
 			return;
 		}
-
 		const newGuests = reorder(guests, result.source.index, result.destination.index);
-
 		setGuests(newGuests);
 	};
 
 	const addNewGuest = (e) => {
-		if (e.key === 'Enter') {
-			setGuests([...guests, { id: guests.length + 1, email: newGuestEmail }]);
-			setNewGuestEmail('');
-		}
+		e.preventDefault();
+		setGuests([...guests, { id: `guest-${guests.length + 1}`, email: newGuestEmail }]);
+		setNewGuestEmail('');
+	};
+
+	const handleContinue = () => {
+		setFinalGuests(guests);
+		jumpToStep(2);
 	};
 
 	return (
@@ -69,15 +73,25 @@ export const GuestPicker: React.FC<GuestPickerProps> = (props) => {
 				</Droppable>
 			</DragDropContext>
 			<div>
-				<input
-					className={styles.addGuest}
-					value={newGuestEmail}
-					onChange={(e) => setNewGuestEmail(e.target.value)}
-					onKeyPress={addNewGuest}
-					type="text"
-					placeholder="Add guest"
-				/>
-				<button onClick={() => jumpToStep(2)}>Continue</button>
+				<form onSubmit={addNewGuest}>
+					<input
+						className={styles.addGuest}
+						value={newGuestEmail}
+						onChange={(e) => setNewGuestEmail(e.target.value)}
+						type="text"
+						placeholder="Add guest"
+					/>
+					<input type="submit" value="Add Guest" />
+				</form>
+				<button
+					onClick={() => {
+						jumpToStep(0);
+					}}>
+					Edit schedule
+				</button>
+				<button className={styles.continue} onClick={handleContinue}>
+					Continue
+				</button>
 			</div>
 		</>
 	);
