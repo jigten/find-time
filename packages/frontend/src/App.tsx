@@ -1,12 +1,12 @@
 import React from 'react';
-import { Landing } from './components';
+import {Landing} from './components';
 
-const App: React.FC<{}> = () => {
-	return (
-		<>
-			<Landing />
-		</>
-	);
+const App: React.FC = () => {
+  return (
+    <>
+      <Landing />
+    </>
+  );
 };
 
 export default App;
