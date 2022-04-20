@@ -35,6 +35,7 @@
     "css-loader": "^6.4.0",
     "dotenv-webpack": "^7.0.3",
     "eslint": "^8.13.0",
+    "eslint-plugin-react": "^7.29.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.4.0",
     "image-webpack-loader": "^8.0.1",
