@@ -1,33 +1,28 @@
 import React from 'react';
-
+import axios from 'axios';
 import {GoogleLogin} from 'react-google-login';
-
 import {CLIENT_ID} from '../../utils/constants';
-
-import {GoogleLoginResponse, GoogleLoginResponseOffline} from 'react-google-login';
-
-import {refreshTokenSetup} from '../../utils/refreshToken';
+import {GoogleLoginResponseOffline} from 'react-google-login';
 
 type LoginProps = {
   setIsLoggedIn: (loggedIn: boolean) => void;
-  setAccessToken: (accessToken: string) => void;
 };
 
 export const Login: React.FC<LoginProps> = (props) => {
-  const {setIsLoggedIn, setAccessToken} = props;
+  const {setIsLoggedIn} = props;
 
-  const onSuccess = async (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    if ('accessToken' in res) {
+  const onSuccess = async (googleData: GoogleLoginResponseOffline) => {
+    const {data} = await axios.post('http://localhost:3001/user/register', {
+      code: googleData.code,
+    });
+
+    if (data) {
       setIsLoggedIn(true);
-
-      setAccessToken(res.accessToken);
-
-      refreshTokenSetup(res);
     }
   };
 
-  const onFailure = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    console.dir(`Login failed, res: ${res}`);
+  const onFailure = (googleData: GoogleLoginResponseOffline) => {
+    console.dir(`Login failed, res: ${googleData}`);
   };
 
   return (
@@ -38,6 +33,8 @@ export const Login: React.FC<LoginProps> = (props) => {
         scope='profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly'
         onSuccess={onSuccess}
         onFailure={onFailure}
+        accessType='offline'
+        responseType='code'
         style={{marginTop: '100px'}}
         isSignedIn={true}
       />

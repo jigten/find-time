@@ -6,6 +6,9 @@
     "node/no-unsupported-features/es-syntax": ["error", {
         "version": ">=8.0.0",
         "ignores": ["modules"]
+    }],
+    "node/no-missing-import": ["error", {
+        "tryExtensions": [".js", ".jsx", ".ts", ".tsx"]
     }]
   }
 }

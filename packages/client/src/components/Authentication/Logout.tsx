@@ -4,14 +4,12 @@ import {CLIENT_ID} from '../../utils/constants';
 
 type LogoutProps = {
   setIsLoggedIn: (loggedIn: boolean) => void;
-  setAccessToken: (accessToken: string) => void;
 };
 
 export const Logout: React.FC<LogoutProps> = (props) => {
-  const {setIsLoggedIn, setAccessToken} = props;
+  const {setIsLoggedIn} = props;
   const onSuccess = () => {
     setIsLoggedIn(false);
-    setAccessToken('');
   };
   return (
     <div>

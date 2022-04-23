@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "start": "webpack server",
+    "dev": "webpack server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
