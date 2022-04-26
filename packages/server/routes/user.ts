@@ -1,6 +1,7 @@
 import express from 'express';
 import {PrismaClient} from '@prisma/client';
 import {google} from 'googleapis';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -16,7 +17,7 @@ router.post('/register', async (req, res) => {
   // Verify Google ID token
   try {
     const {tokens} = await oauth2Client.getToken(code);
-    const {id_token, refresh_token} = tokens;
+    const {id_token, refresh_token, access_token} = tokens;
 
     if (!id_token) {
       return res.status(400).json({
@@ -33,7 +34,28 @@ router.post('/register', async (req, res) => {
 
     if (!refresh_token) {
       // If refresh token is not provided, the user has already signed up before
-      return res.json(payload);
+      const user = await prisma.users.findUnique({
+        where: {
+          email: payload.email,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          error: 'User not found',
+        });
+      }
+
+      return res.json({
+        idToken: jwt.sign(
+          {
+            id: user.id,
+            profile: {email: user.email, name: user?.name, picture: user?.picture},
+            accessToken: access_token,
+          },
+          process.env.JWT_SECRET!,
+        ),
+      });
     }
 
     // Create user

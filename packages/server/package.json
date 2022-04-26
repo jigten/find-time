@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.24",
     "eslint": "^8.13.0",
     "eslint-plugin-node": "^11.1.0",
@@ -22,6 +23,7 @@
     "axios": "^0.26.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "googleapis": "^100.0.0"
+    "googleapis": "^100.0.0",
+    "jsonwebtoken": "^8.5.1"
   }
 }

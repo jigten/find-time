@@ -1,9 +1,10 @@
 -- CreateTable
 CREATE TABLE "users" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
     "picture" TEXT,
+    "refresh_token" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

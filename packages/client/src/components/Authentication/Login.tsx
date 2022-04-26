@@ -1,15 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import {GoogleLogin} from 'react-google-login';
 import {CLIENT_ID} from '../../utils/constants';
 import {GoogleLoginResponseOffline} from 'react-google-login';
+import {TOKEN_KEY} from '../../utils/auth';
 
 type LoginProps = {
-  setIsLoggedIn: (loggedIn: boolean) => void;
+  setUser: (user) => void;
 };
 
 export const Login: React.FC<LoginProps> = (props) => {
-  const {setIsLoggedIn} = props;
+  const {setUser} = props;
 
   const onSuccess = async (googleData: GoogleLoginResponseOffline) => {
     const {data} = await axios.post('http://localhost:3001/user/register', {
@@ -17,7 +19,9 @@ export const Login: React.FC<LoginProps> = (props) => {
     });
 
     if (data) {
-      setIsLoggedIn(true);
+      const {idToken} = data;
+      localStorage.setItem(TOKEN_KEY, idToken);
+      setUser(jwtDecode(idToken));
     }
   };
 

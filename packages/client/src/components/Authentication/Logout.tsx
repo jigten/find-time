@@ -1,15 +1,17 @@
 import React from 'react';
 import {GoogleLogout} from 'react-google-login';
 import {CLIENT_ID} from '../../utils/constants';
+import {TOKEN_KEY} from '../../utils/auth';
 
 type LogoutProps = {
-  setIsLoggedIn: (loggedIn: boolean) => void;
+  setUser: (user?) => void;
 };
 
 export const Logout: React.FC<LogoutProps> = (props) => {
-  const {setIsLoggedIn} = props;
+  const {setUser} = props;
   const onSuccess = () => {
-    setIsLoggedIn(false);
+    localStorage.removeItem(TOKEN_KEY);
+    setUser(null);
   };
   return (
     <div>
