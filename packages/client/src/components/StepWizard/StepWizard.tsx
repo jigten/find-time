@@ -5,7 +5,7 @@ import {Guest, GuestPicker} from '../GuestPicker';
 import {ConfirmDetails} from '../ConfirmDetails';
 import './StepWizard.scss';
 
-export const StepWizard: React.FC = (props) => {
+export const StepWizard: React.FC = () => {
   const [finalSchedule, setFinalSchedule] = useState([new Date(), new Date()]);
   const [finalGuests, setFinalGuests] = useState<Guest[]>([]);
 

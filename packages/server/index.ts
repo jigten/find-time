@@ -1,5 +1,6 @@
 import express from 'express';
-import userRoute from './routes/user';
+import userRoute from './routes/UserRoute';
+import meetingRoute from './routes/MeetingRoute';
 import cors from 'cors';
 
 const app = express();
@@ -9,11 +10,8 @@ const port = 3001;
 app.use(express.json()); //req/body
 app.use(cors());
 
-app.get('/data', (req, res) => {
-  res.json({foo: 'bar'});
-});
-
 app.use('/user', userRoute);
+app.use('/meeting', meetingRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
