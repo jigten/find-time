@@ -14,7 +14,7 @@ export const Login: React.FC<LoginProps> = (props) => {
   const {setUser} = props;
 
   const onSuccess = async (googleData: GoogleLoginResponseOffline) => {
-    const {data} = await axios.post('http://localhost:3001/user/register', {
+    const {data} = await axios.post('http://localhost:3001/users/register', {
       code: googleData.code,
     });
 

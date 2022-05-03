@@ -10,8 +10,8 @@ const port = 3001;
 app.use(express.json()); //req/body
 app.use(cors());
 
-app.use('/user', userRoute);
-app.use('/meeting', meetingRoute);
+app.use('/users', userRoute);
+app.use('/meetings', meetingRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
