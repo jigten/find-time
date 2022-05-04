@@ -5,11 +5,13 @@ Find Time is a full-stack web application that allows users to find the best tim
 The application uses the following stack:
 
 - React for client side
+- React Query
 - Node.js with Express for server side
 - PostgresQL for database
 - Prisma for ORM
 - Docker
 - Webpack
 - Nginx as a reverse proxy
+- Jest
 - Google OAuth for authentication
 - Sass
