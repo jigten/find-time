@@ -1,3 +1,5 @@
+import '@types/jest';
+
 import {calculateFreeTimes} from './calculateFreeTimes';
 
 describe('calculateFreeTimes function', () => {

@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "dev": "turbo run dev --parallel",
-    "db": "docker compose start postgres pgadmin"
+    "db": "docker compose start postgres pgadmin",
+    "docker:build-all": "docker-compose build",
+    "docker:deploy": "docker-compose up -d",
+    "docker:dispose": "docker-compose down"
   },
   "author": "Ugyen Jigten <ujigten@gmail.com>",
   "license": "MIT",

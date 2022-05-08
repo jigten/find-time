@@ -38,29 +38,17 @@ services:
       - /app/node_modules
       - ./packages/server:/app
     environment:
-      - DATABASE_URL="postgresql://postgres:postgres@postgres:5432/find_time?schema=public"
-
-  client:
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    build:
-      dockerfile: Dockerfile
-      context: ./packages/client
-    volumes:
-      - /app/node_modules
-      - ./packages/client:/app
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/find_time?schema=public"
 
   nginx:
     depends_on:
       - api
-      - client
     restart: always
     build:
-      dockerfile: Dockerfile
-      context: ./nginx
+      dockerfile: nginx.Dockerfile
+      context: .
     ports:
-      - "3050:80"
+      - "8080:80"
 
 volumes:
   postgres-data:
