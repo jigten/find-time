@@ -6,7 +6,6 @@ import {AuthContext} from '../context/AuthContext';
 
 export const Landing: React.FC<{}> = () => {
   const [user, setUser] = useContext(AuthContext);
-  console.log('user: ', user);
 
   return (
     <div className={styles.body}>

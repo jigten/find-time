@@ -1,3 +1,5 @@
+/* eslint-disable node/no-missing-import */
+// eslint-disable-next-line node/no-unpublished-import
 import '@types/jest';
 
 import {calculateFreeTimes} from './calculateFreeTimes';

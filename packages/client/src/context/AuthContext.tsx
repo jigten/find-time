@@ -1,5 +1,5 @@
 import React, {useState, useEffect, createContext} from 'react';
-import {TOKEN_KEY} from '../utils/auth';
+import {TOKEN_KEY} from '../utils/constants';
 import jwtDecode from 'jwt-decode';
 
 export const AuthContext = createContext(null);
@@ -7,6 +7,15 @@ export const AuthProvider = (props: {
   children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal;
 }) => {
   const [user, setUser] = useState(null);
+
+  addEventListener('token-refreshed', () => {
+    const idToken = localStorage.getItem(TOKEN_KEY);
+    console.log('token refreshed');
+    if (idToken) {
+      setUser(jwtDecode(idToken));
+    }
+  });
+
   useEffect(() => {
     const idToken = localStorage.getItem(TOKEN_KEY);
     if (idToken) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import {GoogleLogout} from 'react-google-login';
-import {CLIENT_ID} from '../../utils/constants';
-import {TOKEN_KEY} from '../../utils/auth';
+import {CLIENT_ID, TOKEN_KEY} from '../../utils/constants';
 
 type LogoutProps = {
   setUser: (user?) => void;

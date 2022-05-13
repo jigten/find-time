@@ -13,7 +13,10 @@ export const getCalendarEvents = async (emailIds: String[], timeMin: string, tim
   try {
     const response = await axios.post(`${FREEBUSY_ENDPOINT}?access_token=${accessToken}`, requestData);
     return response.data['calendars'];
-  } catch (error) {
-    console.error('getCalendarEvents error:', error);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      console.error('getCalendarEvents error:', err.response?.data);
+    }
+    throw err;
   }
 };
